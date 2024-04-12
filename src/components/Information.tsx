@@ -47,7 +47,13 @@ function Information({ hotel, detailsPage }: IProps) {
               >
                 Edit Description
               </strong>
-              {editDescription ? <Edit /> : null}
+              {editDescription ? (
+                <Edit
+                  editDescription={editDescription}
+                  setEditDescription={setEditDescription}
+                  id={hotel.id}
+                />
+              ) : null}
             </p>
             <button>Delete Hotel</button>
           </>
