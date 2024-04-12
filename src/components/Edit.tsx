@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateHotel } from "../lib/controller";
 
 interface IProps {
   editDescription: boolean;
@@ -14,6 +15,7 @@ function Edit({ editDescription, setEditDescription, id }: IProps) {
 
   const handleUpdate = () => {
     // update hotel
+    updateHotel(id, { description: newDescription });
     setEditDescription(!editDescription);
     // navigate back to homepage
     navigate("/");
