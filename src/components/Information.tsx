@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { deleteHotel } from "../lib/controller";
 import { NewHotelType } from "../types/hotel";
 import Edit from "./Edit";
 
@@ -55,7 +56,9 @@ function Information({ hotel, detailsPage }: IProps) {
                 />
               ) : null}
             </p>
-            <button>Delete Hotel</button>
+            <button onClick={() => deleteHotel(hotel.id, navigate)}>
+              Delete Hotel
+            </button>
           </>
         ) : (
           <Link to={`/hotels/${hotel.id}`}>
