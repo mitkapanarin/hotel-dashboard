@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateHotel } from "../lib/controller";
 
@@ -6,18 +6,29 @@ interface IProps {
   editDescription: boolean;
   setEditDescription: React.Dispatch<React.SetStateAction<boolean>>;
   id?: string;
+  currentDescription: string;
 }
 
-function Edit({ editDescription, setEditDescription, id }: IProps) {
-  const [newDescription, setNewDescription] = useState("");
-
+function Edit({
+  editDescription,
+  setEditDescription,
+  id,
+  currentDescription,
+}: IProps) {
+  const [newDescription, setNewDescription] = useState(currentDescription);
   const navigate = useNavigate();
 
+  // Update newDescription when currentDescription changes
+  useEffect(() => {
+    setNewDescription(currentDescription);
+  }, [currentDescription]);
+
   const handleUpdate = () => {
-    // update hotel
+    // Update hotel
     updateHotel(id, { description: newDescription });
-    setEditDescription(!editDescription);
-    // navigate back to homepage
+    // Close the edit mode
+    setEditDescription(false);
+    // Navigate back to homepage
     navigate("/");
   };
 

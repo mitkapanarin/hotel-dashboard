@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteHotel } from "../lib/controller";
 import { NewHotelType } from "../types/hotel";
@@ -11,8 +11,17 @@ interface IProps {
 
 function Information({ hotel, detailsPage }: IProps) {
   const [editDescription, setEditDescription] = useState(false);
+  const [currentDescription, setCurrentDescription] = useState(
+    hotel.description
+  );
 
   const navigate = useNavigate();
+
+  const handleEditDescription = () => {
+    setEditDescription(!editDescription);
+    // Set current description as the initial value when editing starts
+    setCurrentDescription(hotel.description);
+  };
 
   return (
     <div className="hotel-preview">
@@ -41,11 +50,8 @@ function Information({ hotel, detailsPage }: IProps) {
         {detailsPage ? (
           <>
             <p className="description-text">
-              {hotel.description}{" "}
-              <strong
-                className="edit-text"
-                onClick={() => setEditDescription(!editDescription)}
-              >
+              {currentDescription} {/* Display the current description */}
+              <strong className="edit-text" onClick={handleEditDescription}>
                 Edit Description
               </strong>
               {editDescription ? (
@@ -53,6 +59,7 @@ function Information({ hotel, detailsPage }: IProps) {
                   editDescription={editDescription}
                   setEditDescription={setEditDescription}
                   id={hotel.id}
+                  currentDescription={currentDescription as string}
                 />
               ) : null}
             </p>
