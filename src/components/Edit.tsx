@@ -9,12 +9,7 @@ interface IProps {
   currentDescription: string;
 }
 
-function Edit({
-  editDescription,
-  setEditDescription,
-  id,
-  currentDescription,
-}: IProps) {
+function Edit({ setEditDescription, id, currentDescription }: IProps) {
   const [newDescription, setNewDescription] = useState(currentDescription);
   const navigate = useNavigate();
 
